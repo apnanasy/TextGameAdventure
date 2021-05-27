@@ -70,7 +70,7 @@ while State != STATES[4]:
 
 
 
-#start_desc = "Press m or e. You awaken with a jolt like someone rising from a night terror./n You find rough granite, dimly lit by a fire next to you, surrounding you on all sides except for a hallway on the other side of the room."
+start_desc = "Press m or e. You awaken with a jolt like someone rising from a night terror./n You find rough granite, dimly lit by a fire next to you, surrounding you on all sides except for a hallway on the other side of the room."
 #start_event = Special_Event("A small fire cackles in the center of the room")
 #starting_tile = Tile("Start", start_desc, ["m","e"], "Hallway", start_event, False)
 #hall_desc = "The hall is dark and there is something in the middle"
