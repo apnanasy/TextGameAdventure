@@ -1,14 +1,27 @@
 STATES = ("SPLASH", "MAIN_MENU", "PLAYING_MENU", "PLAYING", "MAIN_SETTINGS", "PLAY_SETTINGS", "NEW_CHARACTER", "QUIT")
 State = STATES[0]
+class Player:
+    def __init__(self, name):
+        self.name = name
+
+class Game:
+    def __init__(self, player):
+        self.player = player
+
+def get_input(prompt, choices):
+    choice = input(prompt)
+    while choice not in choices:
+        print("Please please please enter a valid response")
+        choice = input(prompt)
+
+    return choice
 
 def display_mainmenu():
     global State
-    wrong_prompt = "Please enter a valid letter or number"
     prompt = "Would you like to:\n(q)uit\n(p)lay new character\n(s)ettings\n(c)ontinue old character\n"
-    choice = input(prompt)
-    while choice != 'q' and choice != 'p' and choice != 's' and choice != 'c':
-        print(wrong_prompt)
-        choice = input(prompt)
+    possibles = ('q', 'p', 's', 'c')
+
+    choice = get_input(prompt, possibles)
 
     if choice == 'q':
         State = STATES[7]
@@ -25,19 +38,18 @@ def display_splashscreen():
 def display_playscreen():
     global State
     prompt = "Would you like to enter (m)enu?"
+    possibles = ('m')
     while State == STATES[3]:
         print("play Game!!!")
-        choice = input(prompt)
+        choice = get_input(prompt, possibles)
         if choice == 'm':
             State = STATES[2]
 
 def display_playmenu():
     global State
     prompt = "Would you like to:\n(s)ettings\n(q)uit\n(c)ontinue playing\n"
-    choice = input(prompt)
-    while choice != 's' and choice != 'q' and choice != 'c':
-        print("Sorry please enter a valid response")
-        choice = input(prompt)
+    possibles = ('s','q','c')
+    choice = get_input(prompt, possibles)
 
     if choice == 's':
         State = STATES[5]
@@ -49,10 +61,8 @@ def display_playmenu():
 def display_playsettings():
     global State
     prompt = "Would you like to (c)ontinue playing>\nGo back to the (m)enu?\n"
-    choice = input(prompt)
-    while choice != 'c' and choice != 'm':
-        print("Sorry please enter a valid response\n")
-        choice = input(prompt)
+    possibles = ('c','m')
+    choice = get_input(prompt, possibles)
 
     if choice == 'c':
         State = STATES[3]
@@ -62,10 +72,8 @@ def display_playsettings():
 def display_mainsettings():
     global State
     prompt = "Would you like to go back to the (m)enu?\n"
-    choice = input(prompt)
-    while choice != 'm':
-        print("Please enter a valid response.\n")
-        choice = input(prompt)
+    possibles = ('m')
+    choice = get_input(prompt, possibles)
 
     if choice == 'm':
         State = STATES[1]
@@ -73,12 +81,19 @@ def display_mainsettings():
 def display_newcharacterscreen():
     global State
     prompt = "Would you like to (c)reate a new character?\nGo back to the (m)enu?\n"
-    choice = input(prompt)
-    while choice != 'c' and choice != 'm':
-        print("Please enter a valid response.\n")
-        choice = input(prompt)
+    possibles = ('c','m')
+    choice = get_input(prompt, possibles)
 
     if choice == 'c':
+        prompt = "what would you like your name to be?\n"
+        name = input(prompt)
+        while len(name) <= 1 or len(name) > 12:
+            print(" Please enter a name between 1 and 12 characters")
+            name = input(prompt)
+
+        player = Player(name)
+        game = Game(player)
+        print("Your new name is: " + game.player.name)
         State = STATES[3]
     elif choice == 'm':
         State = STATES[1]
